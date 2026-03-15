@@ -3,56 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Calculadora Inteligente</title>
-
+<title>Calculadora</title>
 <link rel="stylesheet" href="styles.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
 
-<div class="main-container">
+<div class="background"></div>
 
-    <!-- CALCULADORA -->
-    <div class="calculator">
+<div class="calculator">
 
-        <div class="display">
-            <div id="previous-display" class="previous-op"></div>
-            <div id="current-display" class="current-op">0</div>
-        </div>
-
-        <div class="buttons-grid">
-
-            <button id="btn-ac" class="btn-clear">AC</button>
-            <button id="btn-del">DEL</button>
-            <button id="btn-mod" class="btn-operator">%</button>
-            <button id="btn-div" class="btn-operator">÷</button>
-
-            <button class="num-btn">7</button>
-            <button class="num-btn">8</button>
-            <button class="num-btn">9</button>
-            <button id="btn-mul" class="btn-operator">×</button>
-
-            <button class="num-btn">4</button>
-            <button class="num-btn">5</button>
-            <button class="num-btn">6</button>
-            <button id="btn-sub" class="btn-operator">−</button>
-
-            <button class="num-btn">1</button>
-            <button class="num-btn">2</button>
-            <button class="num-btn">3</button>
-            <button id="btn-add" class="btn-operator">+</button>
-
-            <button class="num-btn btn-zero">0</button>
-            <button class="num-btn">.</button>
-            <button id="btn-equal" class="btn-equal">=</button>
-
-        </div>
-
+    <div class="display">
+        <div id="previous"></div>
+        <div id="current">0</div>
     </div>
+
+    <div class="buttons">
+
+        <button class="function" id="clear">AC</button>
+        <button class="function" id="delete">DEL</button>
+        <button class="operator" data-op="%">%</button>
+        <button class="operator" data-op="/">÷</button>
+
+        <button class="number">7</button>
+        <button class="number">8</button>
+        <button class="number">9</button>
+        <button class="operator" data-op="*">×</button>
+
+        <button class="number">4</button>
+        <button class="number">5</button>
+        <button class="number">6</button>
+        <button class="operator" data-op="-">−</button>
+
+        <button class="number">1</button>
+        <button class="number">2</button>
+        <button class="number">3</button>
+        <button class="operator" data-op="+">+</button>
+
+        <button class="number zero">0</button>
+        <button class="number">.</button>
+        <button class="equals" id="equals">=</button>
 
     </div>
 
