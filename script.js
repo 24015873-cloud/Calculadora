@@ -1,123 +1,92 @@
-const display = document.getElementById("display");
-const history = document.getElementById("history");
+const display = document.getElementById("display")
+const history = document.getElementById("history")
 
-let currentVal = "0";
-let prevVal = "";
-let operation = null;
-let resetScreen = false;
+let currentVal = "0"
+let prevVal = ""
+let operation = null
+let resetScreen = false
 
-/* CAMBIO DE TEMA */
+function num(n){
 
-function changeTheme(theme) {
+if(currentVal === "0" || resetScreen){
 
-document.body.className =
-"theme-" +
-theme +
-" min-h-screen flex flex-col items-center justify-center p-4";
+currentVal = n
+resetScreen = false
 
-}
+}else{
 
-/* NUMEROS */
-
-function num(n) {
-
-if (currentVal === "0" || resetScreen) {
-
-currentVal = n;
-resetScreen = false;
-
-} else {
-
-if (n === "." && currentVal.includes(".")) return;
-
-currentVal += n;
+if(n === "." && currentVal.includes(".")) return
+currentVal += n
 
 }
 
-display.innerText = currentVal;
+display.innerText = currentVal
 
 }
 
-/* ACCIONES */
+function action(op){
 
-function action(op) {
+if(op === "C"){
 
-if (op === "C") {
-
-currentVal = "0";
-prevVal = "";
-operation = null;
-history.innerText = "";
+currentVal = "0"
+prevVal = ""
+operation = null
+history.innerText = ""
 
 }
 
-else if (op === "DEL") {
+else if(op === "DEL"){
 
 currentVal =
 currentVal.length > 1
-? currentVal.slice(0, -1)
-: "0";
+? currentVal.slice(0,-1)
+: "0"
 
 }
 
-else {
+else{
 
-if (operation) calculate();
+if(operation) calculate()
 
-prevVal = currentVal;
-operation = op;
+prevVal = currentVal
+operation = op
 
-history.innerText = prevVal + " " + op;
+history.innerText = prevVal + " " + op
 
-resetScreen = true;
-
-}
-
-display.innerText = currentVal;
+resetScreen = true
 
 }
 
-/* CALCULAR */
-
-function calculate() {
-
-if (!operation || resetScreen) return;
-
-const p = parseFloat(prevVal);
-const c = parseFloat(currentVal);
-
-let result;
-
-switch (operation) {
-
-case "+":
-result = p + c;
-break;
-
-case "-":
-result = p - c;
-break;
-
-case "*":
-result = p * c;
-break;
-
-case "/":
-result = p / c;
-break;
-
-case "%":
-result = p % c;
-break;
+display.innerText = currentVal
 
 }
 
-history.innerText = `${p} ${operation} ${c} =`;
+function calculate(){
 
-currentVal = result.toString();
-operation = null;
-resetScreen = true;
+if(!operation || resetScreen) return
 
-display.innerText = currentVal;
+const p = parseFloat(prevVal)
+const c = parseFloat(currentVal)
+
+let result
+
+switch(operation){
+
+case "+": result = p + c; break
+case "-": result = p - c; break
+case "*": result = p * c; break
+case "/": result = p / c; break
+case "%": result = p % c; break
+
+}
+
+history.innerText = `${p} ${operation} ${c} =`
+
+currentVal = result.toString()
+
+operation = null
+resetScreen = true
+
+display.innerText = currentVal
 
 }
