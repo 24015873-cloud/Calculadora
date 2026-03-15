@@ -1,184 +1,148 @@
-class Calculator {
-    constructor(previousDisplay, currentDisplay) {
-        this.previousDisplay = previousDisplay;
-        this.currentDisplay = currentDisplay;
-        this.clear();
-    }
+let current = "0"
+let previous = ""
+let operator = null
 
-    clear() {
-        this.currentOperand = '0';
-        this.previousOperand = '';
-        this.operation = undefined;
-        this.updateDisplay();
-    }
+const currentDisplay = document.getElementById("current")
+const previousDisplay = document.getElementById("previous")
 
-    delete() {
-        if (this.currentOperand === '0') return;
-        this.currentOperand = this.currentOperand.toString().slice(0, -1) || '0';
-        this.updateDisplay();
-    }
+function updateDisplay(){
 
-    appendNumber(number) {
-        if (number === '.' && this.currentOperand.includes('.')) return;
+currentDisplay.textContent = current
 
-        if (this.currentOperand === '0' && number !== '.') {
-            this.currentOperand = number.toString();
-        } else {
-            this.currentOperand =
-                this.currentOperand.toString() + number.toString();
-        }
-
-        this.updateDisplay();
-    }
-
-    appendOperator(operator) {
-        if (this.currentOperand === '') return;
-
-        if (this.previousOperand !== '') {
-            this.compute();
-        }
-
-        this.operation = operator;
-        this.previousOperand = this.currentOperand;
-        this.currentOperand = '0';
-
-        this.updateDisplay();
-    }
-
-    compute() {
-        let computation;
-
-        const prev = parseFloat(this.previousOperand);
-        const current = parseFloat(this.currentOperand);
-
-        if (isNaN(prev) || isNaN(current)) return;
-
-        switch (this.operation) {
-            case '+':
-                computation = prev + current;
-                break;
-
-            case '-':
-                computation = prev - current;
-                break;
-
-            case '*':
-                computation = prev * current;
-                break;
-
-            case '/':
-                if (current === 0) {
-                    this.showError("Error");
-                    return;
-                }
-                computation = prev / current;
-                break;
-
-            case '%':
-                computation = (prev * current) / 100;
-                break;
-
-            default:
-                return;
-        }
-
-        this.currentOperand = parseFloat(computation.toFixed(8)).toString();
-        this.operation = undefined;
-        this.previousOperand = '';
-
-        this.updateDisplay();
-    }
-
-    showError(msg) {
-        this.currentOperand = msg;
-        this.updateDisplay();
-
-        setTimeout(() => this.clear(), 1500);
-    }
-
-    updateDisplay() {
-        this.currentDisplay.innerText = this.currentOperand;
-
-        if (this.operation != null) {
-            this.previousDisplay.innerText =
-                `${this.previousOperand} ${this.operation}`;
-        } else {
-            this.previousDisplay.innerText = '';
-        }
-    }
+if(operator){
+previousDisplay.textContent = previous + " " + operator
+}else{
+previousDisplay.textContent = ""
 }
 
-/* Inicializar calculadora */
+}
 
-const previousDisplay = document.getElementById('previous-display');
-const currentDisplay = document.getElementById('current-display');
+document.querySelectorAll(".number").forEach(btn=>{
 
-const calculator = new Calculator(previousDisplay, currentDisplay);
+btn.addEventListener("click",()=>{
 
-/* Botones numéricos */
+if(btn.textContent === "." && current.includes(".")) return
 
-document.querySelectorAll('.num-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        calculator.appendNumber(button.innerText);
-    });
-});
+if(current === "0" && btn.textContent !== "."){
+current = btn.textContent
+}else{
+current += btn.textContent
+}
 
-/* Botones funcionales */
+updateDisplay()
 
-document.getElementById('btn-ac').addEventListener('click', () => {
-    calculator.clear();
-});
+})
 
-document.getElementById('btn-del').addEventListener('click', () => {
-    calculator.delete();
-});
+})
 
-document.getElementById('btn-equal').addEventListener('click', () => {
-    calculator.compute();
-});
+document.querySelectorAll(".operator").forEach(btn=>{
 
-document.getElementById('btn-add').addEventListener('click', () => {
-    calculator.appendOperator('+');
-});
+btn.addEventListener("click",()=>{
 
-document.getElementById('btn-sub').addEventListener('click', () => {
-    calculator.appendOperator('-');
-});
+if(operator !== null) compute()
 
-document.getElementById('btn-mul').addEventListener('click', () => {
-    calculator.appendOperator('*');
-});
+operator = btn.dataset.op
+previous = current
+current = "0"
 
-document.getElementById('btn-div').addEventListener('click', () => {
-    calculator.appendOperator('/');
-});
+updateDisplay()
 
-document.getElementById('btn-mod').addEventListener('click', () => {
-    calculator.appendOperator('%');
-});
+})
 
-/* Teclado físico */
+})
 
-window.addEventListener('keydown', e => {
+document.getElementById("equals").onclick=compute
 
-    if (e.key >= 0 && e.key <= 9) {
-        calculator.appendNumber(e.key);
-    }
+function compute(){
 
-    if (e.key === '.') {
-        calculator.appendNumber('.');
-    }
+const a = parseFloat(previous)
+const b = parseFloat(current)
 
-    if (e.key === 'Enter') {
-        calculator.compute();
-    }
+if(isNaN(a)||isNaN(b)) return
 
-    if (e.key === 'Backspace') {
-        calculator.delete();
-    }
+let result
 
-    if (e.key === 'Escape') {
-        calculator.clear();
-    }
+switch(operator){
 
-});
+case "+": result=a+b; break
+case "-": result=a-b; break
+case "*": result=a*b; break
+case "/": result=b===0?"Error":a/b; break
+case "%": result=a*b/100; break
+
+}
+
+current = result.toString()
+operator=null
+previous=""
+
+updateDisplay()
+
+}
+
+document.getElementById("clear").onclick=()=>{
+
+current="0"
+previous=""
+operator=null
+updateDisplay()
+
+}
+
+document.getElementById("delete").onclick=()=>{
+
+current=current.slice(0,-1)||"0"
+updateDisplay()
+
+}
+
+/* teclado */
+
+window.addEventListener("keydown",e=>{
+
+if(e.key>=0 && e.key<=9){
+
+if(current==="0") current=e.key
+else current+=e.key
+
+updateDisplay()
+
+}
+
+if(e.key==="."){
+
+if(!current.includes(".")){
+current+="."
+updateDisplay()
+}
+
+}
+
+if(["+","-","*","/","%"].includes(e.key)){
+
+operator=e.key
+previous=current
+current="0"
+updateDisplay()
+
+}
+
+if(e.key==="Enter") compute()
+
+if(e.key==="Backspace"){
+
+current=current.slice(0,-1)||"0"
+updateDisplay()
+
+}
+
+if(e.key==="Escape"){
+
+current="0"
+previous=""
+operator=null
+updateDisplay()
+
+}
+
+})
