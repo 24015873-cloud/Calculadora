@@ -1,156 +1,97 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family: "Segoe UI", sans-serif;
-}
+/* Transiciones */
 
 body{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#0f0f14;
-color:white;
-overflow:hidden;
+transition: background-color 0.5s ease;
 }
 
-/* fondo cyberpunk */
-
-.background{
-position:fixed;
-width:100%;
-height:100%;
-background:
-radial-gradient(circle at 20% 30%, #00ffff22, transparent),
-radial-gradient(circle at 80% 70%, #ff00ff22, transparent),
-#0f0f14;
-filter: blur(40px);
+.calc-container{
+transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* calculadora */
+/* NEUMORPHISM */
 
-.calculator{
-
-backdrop-filter: blur(20px);
-background: rgba(255,255,255,0.05);
-
-border-radius:25px;
-padding:25px;
-
-width:320px;
-
-box-shadow:
-0 10px 40px rgba(0,0,0,0.6),
-inset 0 0 20px rgba(255,255,255,0.05);
+.theme-neumorphic{
+background-color:#e0e5ec;
+color:#444;
 }
 
-/* display */
-
-.display{
-height:90px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:flex-end;
-
-margin-bottom:20px;
-padding:10px;
-
-border-radius:15px;
-
-background:rgba(0,0,0,0.4);
-
-box-shadow:
-inset 4px 4px 10px #000,
-inset -4px -4px 10px #1a1a1a;
+.theme-neumorphic .calc-body{
+background:#e0e5ec;
+border-radius:30px;
+box-shadow:20px 20px 60px #bec3c9,-20px -20px 60px #ffffff;
 }
 
-#previous{
-font-size:14px;
-color:#aaa;
+.theme-neumorphic .btn-calc{
+background:#e0e5ec;
+box-shadow:6px 6px 12px #bec3c9,-6px -6px 12px #ffffff;
+border-radius:12px;
 }
 
-#current{
-font-size:36px;
-font-weight:600;
+.theme-neumorphic .btn-calc:active{
+box-shadow:inset 4px 4px 8px #bec3c9,inset -4px -4px 8px #ffffff;
 }
 
-/* botones */
+/* CYBERPUNK */
 
-.buttons{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:15px;
+.theme-cyberpunk{
+background-color:#0d0221;
+color:#00ff41;
 }
 
-/* estilo base */
-
-button{
-
-height:60px;
-
-border:none;
-border-radius:16px;
-
-font-size:18px;
-cursor:pointer;
-color:white;
-
-background:#14141b;
-
-box-shadow:
-6px 6px 12px #09090d,
--6px -6px 12px #1f1f29;
-
-transition:0.2s;
+.theme-cyberpunk .calc-body{
+background:#0d0221;
+border:2px solid #ff00ff;
+box-shadow:0 0 15px #ff00ff,inset 0 0 10px #ff00ff;
 }
 
-/* efecto neumorfismo */
-
-button:active{
-
-box-shadow:
-inset 4px 4px 8px #09090d,
-inset -4px -4px 8px #1f1f29;
-
-transform:scale(0.97);
-}
-
-/* números */
-
-.number{
-color:#eaeaea;
-}
-
-/* operadores neon */
-
-.operator{
+.theme-cyberpunk .btn-calc{
+background:#1a0842;
+border:1px solid #00ffff;
 color:#00ffff;
-
-text-shadow:0 0 8px #00ffff;
+text-shadow:0 0 5px #00ffff;
 }
 
-/* igual */
-
-.equals{
+.theme-cyberpunk .btn-calc:hover{
 background:#00ffff;
 color:#000;
-
-box-shadow:
-0 0 15px #00ffff,
-0 0 30px #00ffff;
 }
 
-/* funciones */
+/* GLASSMORPHISM */
 
-.function{
-color:#ff5c8a;
-text-shadow:0 0 6px #ff5c8a;
+.theme-glass{
+background:linear-gradient(45deg,#ff9a9e,#fad0c4);
 }
 
-/* cero grande */
+.theme-glass .calc-body{
+background:rgba(255,255,255,0.2);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.3);
+border-radius:24px;
+}
 
-.zero{
-grid-column:span 2;
+.theme-glass .btn-calc{
+background:rgba(255,255,255,0.2);
+border:1px solid rgba(255,255,255,0.1);
+}
+
+/* MINIMAL */
+
+.theme-minimal{
+background-color:#f3f4f6;
+}
+
+.theme-minimal .calc-body{
+background:#1c1c1c;
+border-radius:20px;
+padding:15px;
+}
+
+.theme-minimal .btn-calc{
+background:#505050;
+color:white;
+border-radius:50%;
+}
+
+.theme-minimal .btn-op{
+background:#ff9f0a;
 }
