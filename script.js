@@ -6,14 +6,14 @@ let prevVal = ''
 let operation = null
 let resetScreen = false
 
-function changeTheme(theme){
-
+// CAMBIO DE TEMA
+window.changeTheme = function(theme){
 document.body.className =
 'min-h-screen flex flex-col items-center justify-center p-4 theme-' + theme
-
 }
 
-function num(n){
+// NUMEROS
+window.num = function(n){
 
 if(currentVal === '0' || resetScreen){
 
@@ -31,7 +31,8 @@ display.innerText = currentVal
 
 }
 
-function action(op){
+// ACCIONES
+window.action = function(op){
 
 if(op === 'C'){
 
@@ -68,7 +69,8 @@ display.innerText = currentVal
 
 }
 
-function calculate(){
+// CALCULAR
+window.calculate = function(){
 
 if(!operation || resetScreen) return
 
