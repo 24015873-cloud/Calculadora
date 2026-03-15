@@ -1,101 +1,123 @@
-const display = document.getElementById('display')
-const history = document.getElementById('history')
+const display = document.getElementById("display");
+const history = document.getElementById("history");
 
-let currentVal = '0'
-let prevVal = ''
-let operation = null
-let resetScreen = false
+let currentVal = "0";
+let prevVal = "";
+let operation = null;
+let resetScreen = false;
 
-// CAMBIO DE TEMA
-window.changeTheme = function(theme){
+/* CAMBIO DE TEMA */
+
+function changeTheme(theme) {
+
 document.body.className =
-'min-h-screen flex flex-col items-center justify-center p-4 theme-' + theme
-}
-
-// NUMEROS
-window.num = function(n){
-
-if(currentVal === '0' || resetScreen){
-
-currentVal = n
-resetScreen = false
-
-}else{
-
-if(n === '.' && currentVal.includes('.')) return
-currentVal += n
+"theme-" +
+theme +
+" min-h-screen flex flex-col items-center justify-center p-4";
 
 }
 
-display.innerText = currentVal
+/* NUMEROS */
+
+function num(n) {
+
+if (currentVal === "0" || resetScreen) {
+
+currentVal = n;
+resetScreen = false;
+
+} else {
+
+if (n === "." && currentVal.includes(".")) return;
+
+currentVal += n;
 
 }
 
-// ACCIONES
-window.action = function(op){
-
-if(op === 'C'){
-
-currentVal = '0'
-prevVal = ''
-operation = null
-history.innerText = ''
+display.innerText = currentVal;
 
 }
 
-else if(op === 'DEL'){
+/* ACCIONES */
+
+function action(op) {
+
+if (op === "C") {
+
+currentVal = "0";
+prevVal = "";
+operation = null;
+history.innerText = "";
+
+}
+
+else if (op === "DEL") {
 
 currentVal =
 currentVal.length > 1
-? currentVal.slice(0,-1)
-: '0'
+? currentVal.slice(0, -1)
+: "0";
 
 }
 
-else{
+else {
 
-if(operation) calculate()
+if (operation) calculate();
 
-prevVal = currentVal
-operation = op
+prevVal = currentVal;
+operation = op;
 
-history.innerText = prevVal + ' ' + op
+history.innerText = prevVal + " " + op;
 
-resetScreen = true
-
-}
-
-display.innerText = currentVal
+resetScreen = true;
 
 }
 
-// CALCULAR
-window.calculate = function(){
-
-if(!operation || resetScreen) return
-
-let result
-
-const p = parseFloat(prevVal)
-const c = parseFloat(currentVal)
-
-switch(operation){
-
-case '+': result = p + c; break
-case '-': result = p - c; break
-case '*': result = p * c; break
-case '/': result = p / c; break
-case '%': result = p % c; break
+display.innerText = currentVal;
 
 }
 
-history.innerText = `${p} ${operation} ${c} =`
+/* CALCULAR */
 
-currentVal = result.toString()
+function calculate() {
 
-operation = null
-resetScreen = true
+if (!operation || resetScreen) return;
 
-display.innerText = currentVal
+const p = parseFloat(prevVal);
+const c = parseFloat(currentVal);
+
+let result;
+
+switch (operation) {
+
+case "+":
+result = p + c;
+break;
+
+case "-":
+result = p - c;
+break;
+
+case "*":
+result = p * c;
+break;
+
+case "/":
+result = p / c;
+break;
+
+case "%":
+result = p % c;
+break;
+
+}
+
+history.innerText = `${p} ${operation} ${c} =`;
+
+currentVal = result.toString();
+operation = null;
+resetScreen = true;
+
+display.innerText = currentVal;
 
 }
