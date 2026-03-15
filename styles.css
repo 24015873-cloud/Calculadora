@@ -1,134 +1,156 @@
-:root {
-    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --text-main: #ffffff;
-    --accent-color: #8b5cf6;
-    --ai-accent: #10b981;
-    --btn-bg: rgba(255, 255, 255, 0.08);
-    --btn-hover: rgba(255, 255, 255, 0.15);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: "Segoe UI", sans-serif;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#0f0f14;
+color:white;
+overflow:hidden;
 }
 
-body {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-gradient);
-    padding: 20px;
-    color: var(--text-main);
+/* fondo cyberpunk */
+
+.background{
+position:fixed;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at 20% 30%, #00ffff22, transparent),
+radial-gradient(circle at 80% 70%, #ff00ff22, transparent),
+#0f0f14;
+filter: blur(40px);
 }
 
-.main-container {
-    display: flex;
-    gap: 20px;
-    max-width: 900px;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
+/* calculadora */
+
+.calculator{
+
+backdrop-filter: blur(20px);
+background: rgba(255,255,255,0.05);
+
+border-radius:25px;
+padding:25px;
+
+width:320px;
+
+box-shadow:
+0 10px 40px rgba(0,0,0,0.6),
+inset 0 0 20px rgba(255,255,255,0.05);
 }
 
-/* Calculadora */
-.calculator {
-    flex: 1;
-    min-width: 320px;
-    max-width: 380px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 32px;
-    padding: 24px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+/* display */
+
+.display{
+height:90px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:flex-end;
+
+margin-bottom:20px;
+padding:10px;
+
+border-radius:15px;
+
+background:rgba(0,0,0,0.4);
+
+box-shadow:
+inset 4px 4px 10px #000,
+inset -4px -4px 10px #1a1a1a;
 }
 
-/* Panel IA */
-.ai-panel {
-    flex: 1.2;
-    min-width: 320px;
-    background: rgba(139, 92, 246, 0.05);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(139, 92, 246, 0.2);
-    border-radius: 32px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+#previous{
+font-size:14px;
+color:#aaa;
 }
 
-/* Pantalla */
-.display {
-    padding: 10px;
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    min-height: 100px;
+#current{
+font-size:36px;
+font-weight:600;
 }
 
-.previous-op {
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 1rem;
-    min-height: 1.5rem;
+/* botones */
+
+.buttons{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
 }
 
-.current-op {
-    font-size: 3rem;
-    font-weight: 200;
-    overflow: hidden;
+/* estilo base */
+
+button{
+
+height:60px;
+
+border:none;
+border-radius:16px;
+
+font-size:18px;
+cursor:pointer;
+color:white;
+
+background:#14141b;
+
+box-shadow:
+6px 6px 12px #09090d,
+-6px -6px 12px #1f1f29;
+
+transition:0.2s;
 }
 
-/* Botones */
-.buttons-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+/* efecto neumorfismo */
+
+button:active{
+
+box-shadow:
+inset 4px 4px 8px #09090d,
+inset -4px -4px 8px #1f1f29;
+
+transform:scale(0.97);
 }
 
-button {
-    aspect-ratio: 1/1;
-    border: none;
-    border-radius: 20px;
-    background: var(--btn-bg);
-    color: var(--text-main);
-    font-size: 1.25rem;
-    cursor: pointer;
-    transition: var(--transition);
+/* números */
+
+.number{
+color:#eaeaea;
 }
 
-button:hover {
-    background: var(--btn-hover);
-    transform: translateY(-2px);
+/* operadores neon */
+
+.operator{
+color:#00ffff;
+
+text-shadow:0 0 8px #00ffff;
 }
 
-button:active {
-    transform: scale(0.95);
+/* igual */
+
+.equals{
+background:#00ffff;
+color:#000;
+
+box-shadow:
+0 0 15px #00ffff,
+0 0 30px #00ffff;
 }
 
-.btn-operator { background: rgba(139, 92, 246, 0.2); color: #c4b5fd; }
-.btn-equal { background: var(--accent-color); color: white; }
-.btn-clear { background: rgba(239, 68, 68, 0.1); color: #fca5a5; }
+/* funciones */
 
-.btn-zero {
-    grid-column: span 2;
-    aspect-ratio: auto;
+.function{
+color:#ff5c8a;
+text-shadow:0 0 6px #ff5c8a;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+/* cero grande */
 
-@media (max-width: 768px) {
-    .main-container { flex-direction: column; align-items: center; }
-    .ai-panel { width: 100%; max-width: 380px; }
+.zero{
+grid-column:span 2;
 }
