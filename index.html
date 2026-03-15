@@ -3,52 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora</title>
-<link rel="stylesheet" href="styles.css">
+
+<title>Explorador de Estilos de Calculadora</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="css/styles.css">
+
 </head>
 
-<body>
+<body class="theme-neumorphic min-h-screen flex flex-col items-center justify-center p-4">
 
-<div class="background"></div>
+<!-- Selector de Temas -->
 
-<div class="calculator">
+<div class="mb-10 flex flex-wrap justify-center gap-4 bg-white/20 p-2 rounded-full backdrop-blur-md">
 
-    <div class="display">
-        <div id="previous"></div>
-        <div id="current">0</div>
-    </div>
+<button onclick="changeTheme('neumorphic')" class="px-4 py-2 rounded-full bg-white text-gray-800 text-sm font-bold shadow-sm">
+Neumorfismo
+</button>
 
-    <div class="buttons">
+<button onclick="changeTheme('cyberpunk')" class="px-4 py-2 rounded-full bg-black text-cyan-400 text-sm font-bold shadow-sm">
+Cyberpunk
+</button>
 
-        <button class="function" id="clear">AC</button>
-        <button class="function" id="delete">DEL</button>
-        <button class="operator" data-op="%">%</button>
-        <button class="operator" data-op="/">÷</button>
+<button onclick="changeTheme('glass')" class="px-4 py-2 rounded-full bg-white/50 text-pink-600 text-sm font-bold shadow-sm">
+Glassmorfismo
+</button>
 
-        <button class="number">7</button>
-        <button class="number">8</button>
-        <button class="number">9</button>
-        <button class="operator" data-op="*">×</button>
-
-        <button class="number">4</button>
-        <button class="number">5</button>
-        <button class="number">6</button>
-        <button class="operator" data-op="-">−</button>
-
-        <button class="number">1</button>
-        <button class="number">2</button>
-        <button class="number">3</button>
-        <button class="operator" data-op="+">+</button>
-
-        <button class="number zero">0</button>
-        <button class="number">.</button>
-        <button class="equals" id="equals">=</button>
-
-    </div>
+<button onclick="changeTheme('minimal')" class="px-4 py-2 rounded-full bg-gray-800 text-white text-sm font-bold shadow-sm">
+Minimalista
+</button>
 
 </div>
 
-<script src="script.js"></script>
+<!-- Calculadora -->
+
+<div class="calc-container w-full max-w-[320px]">
+
+<div class="calc-body p-6 flex flex-col gap-4">
+
+<!-- Pantalla -->
+
+<div class="flex flex-col items-end justify-end h-20 px-2">
+
+<div id="history" class="text-xs opacity-60 h-4"></div>
+
+<div id="display" class="text-4xl font-light">0</div>
+
+</div>
+
+<!-- Botones -->
+
+<div class="grid grid-cols-4 gap-3">
+
+<button onclick="action('C')" class="btn-calc aspect-square flex items-center justify-center font-bold">C</button>
+
+<button onclick="action('DEL')" class="btn-calc aspect-square flex items-center justify-center font-bold">←</button>
+
+<button onclick="action('%')" class="btn-calc aspect-square flex items-center justify-center font-bold btn-op">%</button>
+
+<button onclick="action('/')" class="btn-calc aspect-square flex items-center justify-center font-bold btn-op">÷</button>
+
+<button onclick="num('7')" class="btn-calc aspect-square flex items-center justify-center">7</button>
+<button onclick="num('8')" class="btn-calc aspect-square flex items-center justify-center">8</button>
+<button onclick="num('9')" class="btn-calc aspect-square flex items-center justify-center">9</button>
+<button onclick="action('*')" class="btn-calc aspect-square flex items-center justify-center font-bold btn-op">×</button>
+
+<button onclick="num('4')" class="btn-calc aspect-square flex items-center justify-center">4</button>
+<button onclick="num('5')" class="btn-calc aspect-square flex items-center justify-center">5</button>
+<button onclick="num('6')" class="btn-calc aspect-square flex items-center justify-center">6</button>
+<button onclick="action('-')" class="btn-calc aspect-square flex items-center justify-center font-bold btn-op">-</button>
+
+<button onclick="num('1')" class="btn-calc aspect-square flex items-center justify-center">1</button>
+<button onclick="num('2')" class="btn-calc aspect-square flex items-center justify-center">2</button>
+<button onclick="num('3')" class="btn-calc aspect-square flex items-center justify-center">3</button>
+<button onclick="action('+')" class="btn-calc aspect-square flex items-center justify-center font-bold btn-op">+</button>
+
+<button onclick="num('0')" class="btn-calc col-span-2 rounded-full flex items-center justify-center">0</button>
+
+<button onclick="num('.')" class="btn-calc aspect-square flex items-center justify-center">.</button>
+
+<button onclick="calculate()" class="btn-calc aspect-square flex items-center justify-center font-bold btn-op">=</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="js/script.js"></script>
 
 </body>
 </html>
