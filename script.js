@@ -1,148 +1,99 @@
-let current = "0"
-let previous = ""
-let operator = null
+const display = document.getElementById('display')
+const history = document.getElementById('history')
 
-const currentDisplay = document.getElementById("current")
-const previousDisplay = document.getElementById("previous")
+let currentVal = '0'
+let prevVal = ''
+let operation = null
+let resetScreen = false
 
-function updateDisplay(){
+function changeTheme(theme){
 
-currentDisplay.textContent = current
+document.body.className =
+'min-h-screen flex flex-col items-center justify-center p-4 theme-' + theme
 
-if(operator){
-previousDisplay.textContent = previous + " " + operator
+}
+
+function num(n){
+
+if(currentVal === '0' || resetScreen){
+
+currentVal = n
+resetScreen = false
+
 }else{
-previousDisplay.textContent = ""
-}
+
+if(n === '.' && currentVal.includes('.')) return
+currentVal += n
 
 }
 
-document.querySelectorAll(".number").forEach(btn=>{
+display.innerText = currentVal
 
-btn.addEventListener("click",()=>{
-
-if(btn.textContent === "." && current.includes(".")) return
-
-if(current === "0" && btn.textContent !== "."){
-current = btn.textContent
-}else{
-current += btn.textContent
 }
 
-updateDisplay()
+function action(op){
 
-})
+if(op === 'C'){
 
-})
+currentVal = '0'
+prevVal = ''
+operation = null
+history.innerText = ''
 
-document.querySelectorAll(".operator").forEach(btn=>{
+}
 
-btn.addEventListener("click",()=>{
+else if(op === 'DEL'){
 
-if(operator !== null) compute()
+currentVal =
+currentVal.length > 1
+? currentVal.slice(0,-1)
+: '0'
 
-operator = btn.dataset.op
-previous = current
-current = "0"
+}
 
-updateDisplay()
+else{
 
-})
+if(operation) calculate()
 
-})
+prevVal = currentVal
+operation = op
 
-document.getElementById("equals").onclick=compute
+history.innerText = prevVal + ' ' + op
 
-function compute(){
+resetScreen = true
 
-const a = parseFloat(previous)
-const b = parseFloat(current)
+}
 
-if(isNaN(a)||isNaN(b)) return
+display.innerText = currentVal
+
+}
+
+function calculate(){
+
+if(!operation || resetScreen) return
 
 let result
 
-switch(operator){
+const p = parseFloat(prevVal)
+const c = parseFloat(currentVal)
 
-case "+": result=a+b; break
-case "-": result=a-b; break
-case "*": result=a*b; break
-case "/": result=b===0?"Error":a/b; break
-case "%": result=a*b/100; break
+switch(operation){
 
-}
-
-current = result.toString()
-operator=null
-previous=""
-
-updateDisplay()
+case '+': result = p + c; break
+case '-': result = p - c; break
+case '*': result = p * c; break
+case '/': result = p / c; break
+case '%': result = p % c; break
 
 }
 
-document.getElementById("clear").onclick=()=>{
+history.innerText = `${p} ${operation} ${c} =`
 
-current="0"
-previous=""
-operator=null
-updateDisplay()
+currentVal = result.toString()
 
-}
+operation = null
+resetScreen = true
 
-document.getElementById("delete").onclick=()=>{
-
-current=current.slice(0,-1)||"0"
-updateDisplay()
+display.innerText = currentVal
 
 }
-
-/* teclado */
-
-window.addEventListener("keydown",e=>{
-
-if(e.key>=0 && e.key<=9){
-
-if(current==="0") current=e.key
-else current+=e.key
-
-updateDisplay()
-
-}
-
-if(e.key==="."){
-
-if(!current.includes(".")){
-current+="."
-updateDisplay()
-}
-
-}
-
-if(["+","-","*","/","%"].includes(e.key)){
-
-operator=e.key
-previous=current
-current="0"
-updateDisplay()
-
-}
-
-if(e.key==="Enter") compute()
-
-if(e.key==="Backspace"){
-
-current=current.slice(0,-1)||"0"
-updateDisplay()
-
-}
-
-if(e.key==="Escape"){
-
-current="0"
-previous=""
-operator=null
-updateDisplay()
-
-}
-
-})
