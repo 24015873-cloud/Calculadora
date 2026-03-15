@@ -1,4 +1,4 @@
-const apiKey = ""; // La API Key se inyecta automáticamente en el entorno
+const apiKey = "AIzaSyCcBmm8TeXyd5r-KQ8cQ6mSo3VcgO4dGB0"; 
 
 class Calculator {
     constructor(previousDisplay, currentDisplay) {
