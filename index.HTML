@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Calculadora Inteligente</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <!-- CALCULADORA -->
+    <div class="calculator">
+
+        <div class="display">
+            <div id="previous-display" class="previous-op"></div>
+            <div id="current-display" class="current-op">0</div>
+        </div>
+
+        <div class="buttons-grid">
+
+            <button id="btn-ac" class="btn-clear">AC</button>
+            <button id="btn-del">DEL</button>
+            <button id="btn-mod" class="btn-operator">%</button>
+            <button id="btn-div" class="btn-operator">÷</button>
+
+            <button class="num-btn">7</button>
+            <button class="num-btn">8</button>
+            <button class="num-btn">9</button>
+            <button id="btn-mul" class="btn-operator">×</button>
+
+            <button class="num-btn">4</button>
+            <button class="num-btn">5</button>
+            <button class="num-btn">6</button>
+            <button id="btn-sub" class="btn-operator">−</button>
+
+            <button class="num-btn">1</button>
+            <button class="num-btn">2</button>
+            <button class="num-btn">3</button>
+            <button id="btn-add" class="btn-operator">+</button>
+
+            <button class="num-btn btn-zero">0</button>
+            <button class="num-btn">.</button>
+            <button id="btn-equal" class="btn-equal">=</button>
+
+        </div>
+
+    </div>
+
+
+    <!-- PANEL IA -->
+    <div class="ai-panel">
+
+        <div class="ai-header">
+            🤖 Asistente matemático
+        </div>
+
+        <textarea
+            id="ai-input"
+            placeholder="Ejemplo: calcula el IVA del 16% de 1500 o 2500 + 3400"
+        ></textarea>
+
+        <button id="ai-submit" class="ai-btn">
+            <span class="loader" id="ai-loader"></span>
+            Calcular con IA
+        </button>
+
+        <div id="ai-output" class="ai-response">
+            Aquí aparecerá la respuesta del asistente.
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
