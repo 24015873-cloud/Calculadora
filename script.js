@@ -112,31 +112,41 @@ async function askGemini() {
     const systemPrompt = "Eres un asistente matemático. Resuelve el problema. Al final, escribe 'RESULTADO: [valor]'.";
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: input }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] }
-            })
-        });
 
-        if (!response.ok) throw new Error('API Error');
-        
-        const data = await response.json();
-        const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        
-        output.innerHTML = resultText.replace(/\n/g, '<br>');
+const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+contents: [
+{
+parts: [
+{ text: `${systemPrompt}\n\n${input}` }
+]
+}
+]
+})
+});
 
-        // Sincronizar con la calculadora si hay un resultado numérico
-        const match = resultText.match(/RESULTADO:\s*([\d.,]+)/i);
-        if (match && match[1]) {
-            calculator.currentOperand = match[1].replace(',', '');
-            calculator.updateDisplay();
-        }
-    } catch (error) {
-        output.innerHTML = "Hubo un error con la IA. Intenta de nuevo.";
-    } finally {
+if (!response.ok) {
+const text = await response.text();
+throw new Error(text);
+}
+
+const data = await response.json();
+
+const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No hubo respuesta.";
+
+output.innerHTML = resultText.replace(/\n/g,"<br>");
+
+} catch (error) {
+
+console.error("Error Gemini:", error);
+
+output.innerHTML = "Error al consultar la IA.";
+
+} finally {
         loader.style.display = 'none';
         btn.disabled = false;
     }
