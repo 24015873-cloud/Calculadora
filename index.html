@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Calculadora Neumórfica</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<div class="calculator">
+
+<div class="display">
+
+<div id="history"></div>
+
+<div id="display">0</div>
+
+</div>
+
+<div class="buttons">
+
+<button onclick="action('C')">C</button>
+<button onclick="action('DEL')">←</button>
+<button onclick="action('%')">%</button>
+<button onclick="action('/')">÷</button>
+
+<button onclick="num('7')">7</button>
+<button onclick="num('8')">8</button>
+<button onclick="num('9')">9</button>
+<button onclick="action('*')">×</button>
+
+<button onclick="num('4')">4</button>
+<button onclick="num('5')">5</button>
+<button onclick="num('6')">6</button>
+<button onclick="action('-')">−</button>
+
+<button onclick="num('1')">1</button>
+<button onclick="num('2')">2</button>
+<button onclick="num('3')">3</button>
+<button onclick="action('+')">+</button>
+
+<button onclick="num('0')" class="zero">0</button>
+<button onclick="num('.')">.</button>
+<button onclick="calculate()">=</button>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
